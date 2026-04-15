@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <span class="tag">Experimenta lo Etéreo</span>
+        <h1>Donde la precisión clínica se une al confort.</h1>
+        <p>Un santuario digital para tu salud dental. Hemos rediseñado la experiencia clínica para brindar un cuidado tranquilo y personalizado en un entorno de vanguardia.</p>
+        <div class="hero-buttons">
+            <a href="/booking" class="btn-primary">Comienza tu Viaje</a>
+            <a href="#about" class="btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                </svg>
+                Conoce Nuestro Espacio
+            </a>
+        </div>
+        <div class="badge">
+            <div class="badge-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                </svg>
+            </div>
+            <div class="badge-text">
+                <span class="badge-title">Calidad Certificada</span>
+                <span class="badge-subtitle">Estándares Europeos Líderes</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" alt="Modern dental clinic interior with blue chair">
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about" id="about">
+    <div class="about-grid">
+        <div class="about-content">
+            <h2>Diseñando sonrisas con el ojo detallista de un curador.</h2>
+            <p>The Clinical Atelier es más que un consultorio dental; es un espacio donde la ciencia restaurativa y la maestría estética convergen. Fundados bajo el principio de intervención mínima, priorizamos la longevidad y la belleza natural de tu sonrisa.</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Años de Experiencia</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">4.9/5</span>
+                    <span class="stat-label">Satisfacción del Paciente</span>
+                </div>
+            </div>
+        </div>
+        <div class="about-visual">
+            <div class="about-card">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80" alt="Dr. Vance">
+                <h4>Dr. Vance</h4>
+                <p>Clínica Principal</p>
+            </div>
+            <div class="about-card">
+                <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=80" alt="Dr. Thorne">
+                <h4>Dr. Thorne</h4>
+                <p>Periodoncista</p>
+            </div>
+            <div class="quote-card">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-bottom: 1rem; opacity: 0.5;">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.436 8.438-9.436 1.513 0 2.511.116 2.511.116v4.689s-1.135-.035-2.063.211c-.928.246-1.396.789-1.396 1.861V21h-6.49zm-9.437 0v-7.391c0-5.704 3.748-9.436 8.438-9.436 1.513 0 2.511.116 2.511.116v4.689s-1.135-.035-2.063.211c-.928.246-1.396.789-1.396 1.861V21H4.58z"/>
+                </svg>
+                <p>"La precisión es nuestra base. El confort es nuestra obra maestra."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services" id="services">
+    <div class="section-header">
+        <h2>Tratamientos restaurativos para un legado duradero.</h2>
+        <a href="/booking" class="link-arrow">
+            Ver Menú Completo de Servicios
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </a>
+    </div>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">🦷</div>
+            <h3>Ortodoncia</h3>
+            <p>Técnicas de alineación revolucionarias utilizando alineadores transparentes y cerámicas sutiles para un viaje sin fisuras hacia una sonrisa perfecta.</p>
+            <div class="service-meta">
+                <span class="tag-small">Invisalign</span>
+                <span class="tag-small">Brackets Cerámicos</span>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">✨</div>
+            <h3>Limpieza Estética</h3>
+            <p>Más allá de la higiene. Nuestra limpieza exclusiva utiliza tecnología air-flow para eliminar manchas suavemente preservando el brillo natural del esmalte.</p>
+            <div class="service-meta">
+                <span class="tag-small">Air-Flow</span>
+                <span class="tag-small">Sin Dolor</span>
+            </div>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🎯</div>
+            <h3>Odontología Restaurativa</h3>
+            <p>Combinamos materiales biomiméticos con precisión microscópica para restaurar la integridad estructural y la belleza de tus dientes naturales.</p>
+            <div class="service-meta">
+                <span class="tag-small">Implantes</span>
+                <span class="tag-small">Carillas</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <h2>Comienza tu transformación hoy mismo.</h2>
+    <p>Experimenta un nuevo estándar de cuidado dental donde tu comodidad es nuestra prioridad. Cupos limitados para nuevos pacientes este mes.</p>
+    <div class="cta-buttons">
+        <a href="/booking" class="btn-white">Agendar Cita</a>
+        <a href="/contact" class="btn-outline-white">Contactar Concierge</a>
+    </div>
+</section>
+
+{% endblock %}

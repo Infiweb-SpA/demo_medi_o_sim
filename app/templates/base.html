@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Clinical Atelier{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+<!-- <base target="_blank"> -->
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">The Clinical Atelier</a>
+    <div class="nav-links">
+        <a href="/" {% if request.path == '/' %}class="active"{% endif %}>Inicio</a>
+        <a href="/#about">Quiénes Somos</a>
+        <a href="/#services">Servicios</a>
+        <a href="/booking" {% if request.path == '/booking' %}class="active"{% endif %}>Reservas</a>
+        <a href="/contact" {% if request.path == '/contact' %}class="active"{% endif %}>Contacto</a>
+    </div>
+    <a href="/booking" class="btn-primary">Reservar Cita</a>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <h3>The Clinical Atelier</h3>
+            <p>Precisión healthcare meets ethereal design. Redefiniendo la experiencia dental desde 2024.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Clínica</h4>
+            <a href="/#about">Nuestro Equipo</a>
+            <a href="/#services">Instalaciones</a>
+            <a href="/booking">Precios</a>
+        </div>
+        <div class="footer-col">
+            <h4>Conectar</h4>
+            <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="/privacy">Política de Privacidad</a>
+            <a href="/terms">Términos de Servicio</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 The Clinical Atelier. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>
