@@ -8,22 +8,95 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Estilos básicos para el menú hamburguesa (móvil) */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #191c1d;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap;
+                padding: 1rem;
+            }
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid #e2e8f0;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            nav .btn-primary {
+                display: none;
+            }
+            nav .btn-primary.mobile-visible {
+                display: inline-block;
+                margin-top: 0.5rem;
+            }
+            .mobile-menu-btn {
+                display: block;
+                margin-left: auto;
+            }
+            .nav-header {
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+            .logo {
+                flex: 1;
+            }
+        }
+    </style>
     {% block extra_css %}{% endblock %}
-<!-- <base target="_blank"> -->
 </head>
 <body>
 
 <nav>
-    <a href="/" class="logo">The Clinical Atelier</a>
-    <div class="nav-links">
+    <div class="nav-header">
+        <a href="/" class="logo">The Clinical Atelier</a>
+        <button class="mobile-menu-btn" aria-label="Menú" onclick="toggleMenu()">☰</button>
+    </div>
+    <div class="nav-links" id="navLinks">
         <a href="/" {% if request.path == '/' %}class="active"{% endif %}>Inicio</a>
         <a href="/#about">Quiénes Somos</a>
         <a href="/#services">Servicios</a>
         <a href="/booking" {% if request.path == '/booking' %}class="active"{% endif %}>Reservas</a>
         <a href="/contact" {% if request.path == '/contact' %}class="active"{% endif %}>Contacto</a>
+        <!-- Botón de Reservar visible solo en móvil dentro del menú -->
+        <a href="/booking" class="btn-primary mobile-visible">Reservar Cita</a>
     </div>
-    <a href="/booking" class="btn-primary">Reservar Cita</a>
+    <!-- Botón visible solo en escritorio -->
+    <a href="/booking" class="btn-primary desktop-visible">Reservar Cita</a>
 </nav>
+
+<script>
+    function toggleMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('active');
+    }
+    // Cerrar menú al hacer clic en un enlace (mejora usabilidad)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('navLinks').classList.remove('active');
+        });
+    });
+    // Ocultar botón de escritorio en móvil mediante CSS (ya lo hacemos con media query)
+</script>
 
 {% block content %}{% endblock %}
 
