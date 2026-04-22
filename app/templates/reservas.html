@@ -84,21 +84,16 @@
         background: rgba(247, 249, 251, 0.8);
         backdrop-filter: blur(20px);
     }
-    /* Ajuste para que el header fijo no tape el contenido */
-    body {
-        padding-top: 80px; /* altura del nav */
+    /* Ajustes adicionales para que el contenido no quede pegado */
+    main {
+        padding-top: 1rem;
+        padding-bottom: 2rem;
     }
-    @media (max-width: 768px) {
-        body {
-            padding-top: 70px;
-        }
-    }
-    /* Ocultar el header de base si ya lo tenemos? No, lo usamos. Solo quitamos duplicados. */
 </style>
 {% endblock %}
 
 {% block content %}
-<main class="pt-8 pb-20 px-6 max-w-7xl mx-auto">
+<main class="max-w-7xl mx-auto px-6">
     <!-- Hero Section -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
         <div class="lg:col-span-5">
@@ -189,7 +184,7 @@
                 </div>
             </div>
 
-            <!-- Columna derecha: Fecha y Hora -->
+            <!-- Columna derecha: Datos y fecha/hora -->
             <div class="xl:col-span-1">
                 <div class="bg-surface-container-highest p-8 rounded-full sticky top-28 shadow-[0px_10px_40px_rgba(25,103,119,0.06)]">
                     <div class="flex items-center gap-3 mb-8">
@@ -209,13 +204,13 @@
                         </div>
                     </div>
 
-                    <!-- Selector de fecha -->
+                    <!-- Fecha -->
                     <div class="mb-8">
                         <label class="block text-sm font-medium mb-2">Fecha</label>
                         <input type="date" name="date" required class="w-full rounded-xl border-gray-200" id="dateInput">
                     </div>
 
-                    <!-- Selector de hora -->
+                    <!-- Hora -->
                     <div class="space-y-4">
                         <p class="text-sm font-bold text-outline uppercase tracking-wider">Horarios disponibles</p>
                         <select name="time" required class="w-full rounded-xl border-gray-200">
@@ -239,7 +234,6 @@
 
 {% block extra_js %}
 <script>
-    // Establecer fecha mínima como hoy
     document.addEventListener('DOMContentLoaded', function() {
         const today = new Date().toISOString().split('T')[0];
         const dateInput = document.getElementById('dateInput');
@@ -248,7 +242,7 @@
             dateInput.value = today;
         }
     });
-    // Función para abrir drawer (se llama desde el botón hamburguesa)
+    // Función openDrawer ya está definida en base.html, pero la redeclaramos para evitar errores si se llama desde algún botón extra.
     function openDrawer() {
         document.getElementById('navDrawer').classList.add('active');
         document.getElementById('drawerOverlay').classList.add('active');
