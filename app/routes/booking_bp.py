@@ -31,4 +31,4 @@ def booking():
             flash(f"Error al reservar: {str(e)}", "error")
             return redirect("/booking")
 
-    return render_template("booking.html", services=services, dentists=dentists)
+    return render_template("reservas.html", services=services, dentists=dentists)
