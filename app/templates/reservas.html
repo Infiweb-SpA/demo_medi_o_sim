@@ -93,26 +93,11 @@
             padding-top: 70px;
         }
     }
+    /* Ocultar el header de base si ya lo tenemos? No, lo usamos. Solo quitamos duplicados. */
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- Header fijo (ya lo tenemos en base, pero aquí se redefine para que coincida con el diseño) -->
-<header class="fixed top-0 w-full z-50 bg-[#f7f9fb]/80 backdrop-blur-xl shadow-[0px_10px_40px_rgba(25,103,119,0.06)]">
-    <nav class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
-        <div class="text-2xl font-bold text-[#156575] font-headline tracking-tight">The Clinical Atelier</div>
-        <div class="hidden md:flex items-center gap-8 font-headline tracking-tight font-semibold">
-            <a href="/" class="text-[#414754] hover:text-[#156575] transition-colors">Inicio</a>
-            <a href="/#about" class="text-[#414754] hover:text-[#156575] transition-colors">Quiénes Somos</a>
-            <a href="/#services" class="text-[#414754] hover:text-[#156575] transition-colors">Servicios</a>
-            <a href="/booking" class="text-[#156575] border-b-2 border-[#156575] pb-1">Reservas</a>
-            <a href="/contact" class="text-[#414754] hover:text-[#156575] transition-colors">Contacto</a>
-        </div>
-        <!-- Botón hamburguesa móvil (usamos el mismo del base pero lo replicamos para consistencia visual) -->
-        <button class="md:hidden text-2xl" onclick="openDrawer()">☰</button>
-    </nav>
-</header>
-
 <main class="pt-8 pb-20 px-6 max-w-7xl mx-auto">
     <!-- Hero Section -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
@@ -224,10 +209,10 @@
                         </div>
                     </div>
 
-                    <!-- Selector de fecha (simplificado, se puede mejorar con JS) -->
+                    <!-- Selector de fecha -->
                     <div class="mb-8">
                         <label class="block text-sm font-medium mb-2">Fecha</label>
-                        <input type="date" name="date" required class="w-full rounded-xl border-gray-200" value="{{ today_date }}">
+                        <input type="date" name="date" required class="w-full rounded-xl border-gray-200" id="dateInput">
                     </div>
 
                     <!-- Selector de hora -->
@@ -250,26 +235,24 @@
         </section>
     </form>
 </main>
-
-<!-- Footer ya viene de base.html -->
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    // Sincronizar apertura del drawer con el que definimos en base.html
+    // Establecer fecha mínima como hoy
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('dateInput');
+        if (dateInput) {
+            dateInput.min = today;
+            dateInput.value = today;
+        }
+    });
+    // Función para abrir drawer (se llama desde el botón hamburguesa)
     function openDrawer() {
         document.getElementById('navDrawer').classList.add('active');
         document.getElementById('drawerOverlay').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-    // Establecer fecha mínima como hoy
-    document.addEventListener('DOMContentLoaded', function() {
-        const today = new Date().toISOString().split('T')[0];
-        const dateInput = document.querySelector('input[name="date"]');
-        if (dateInput) {
-            dateInput.min = today;
-            if (!dateInput.value) dateInput.value = today;
-        }
-    });
 </script>
 {% endblock %}
