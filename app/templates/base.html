@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        /* Estilos básicos para el menú hamburguesa (móvil) */
+        /* Estilos para el menú drawer móvil */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -17,48 +17,95 @@
             font-size: 2rem;
             cursor: pointer;
             color: #191c1d;
+            z-index: 1001;
         }
         .nav-links {
             display: flex;
             gap: 2rem;
             align-items: center;
         }
+        /* Drawer lateral */
+        .nav-drawer {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .nav-drawer.active {
+            left: 0;
+        }
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .nav-drawer a {
+            display: block;
+            padding: 0.75rem 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #191c1d;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        .nav-drawer a.active {
+            color: #156575;
+        }
+        .close-drawer {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
         @media (max-width: 768px) {
-            nav {
-                flex-wrap: wrap;
-                padding: 1rem;
-            }
-            .nav-links {
+            .desktop-nav {
                 display: none;
-                width: 100%;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.75rem;
-                margin-top: 1rem;
-                padding-top: 1rem;
-                border-top: 1px solid #e2e8f0;
-            }
-            .nav-links.active {
-                display: flex;
-            }
-            nav .btn-primary {
-                display: none;
-            }
-            nav .btn-primary.mobile-visible {
-                display: inline-block;
-                margin-top: 0.5rem;
             }
             .mobile-menu-btn {
                 display: block;
-                margin-left: auto;
             }
-            .nav-header {
-                display: flex;
-                align-items: center;
-                width: 100%;
+            nav {
+                justify-content: space-between;
+                padding: 1rem;
             }
             .logo {
-                flex: 1;
+                font-size: 1.5rem;
+            }
+        }
+        @media (min-width: 769px) {
+            .mobile-menu-btn, .nav-drawer, .drawer-overlay {
+                display: none;
+            }
+            nav {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .desktop-nav {
+                display: flex;
+                gap: 2rem;
             }
         }
     </style>
@@ -66,36 +113,50 @@
 </head>
 <body>
 
+<!-- Drawer overlay (fondo oscuro) -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<!-- Menú lateral drawer -->
+<div class="nav-drawer" id="navDrawer">
+    <button class="close-drawer" onclick="closeDrawer()">&times;</button>
+    <a href="/" {% if request.path == '/' %}class="active"{% endif %}>Inicio</a>
+    <a href="/#about">Quiénes Somos</a>
+    <a href="/#services">Servicios</a>
+    <a href="/booking" {% if request.path == '/booking' %}class="active"{% endif %}>Reservas</a>
+    <a href="/contact" {% if request.path == '/contact' %}class="active"{% endif %}>Contacto</a>
+</div>
+
 <nav>
-    <div class="nav-header">
-        <a href="/" class="logo">The Clinical Atelier</a>
-        <button class="mobile-menu-btn" aria-label="Menú" onclick="toggleMenu()">☰</button>
-    </div>
-    <div class="nav-links" id="navLinks">
+    <a href="/" class="logo">The Clinical Atelier</a>
+    
+    <!-- Navegación de escritorio -->
+    <div class="desktop-nav nav-links">
         <a href="/" {% if request.path == '/' %}class="active"{% endif %}>Inicio</a>
         <a href="/#about">Quiénes Somos</a>
         <a href="/#services">Servicios</a>
         <a href="/booking" {% if request.path == '/booking' %}class="active"{% endif %}>Reservas</a>
         <a href="/contact" {% if request.path == '/contact' %}class="active"{% endif %}>Contacto</a>
-        <!-- Botón de Reservar visible solo en móvil dentro del menú -->
-        <a href="/booking" class="btn-primary mobile-visible">Reservar Cita</a>
     </div>
-    <!-- Botón visible solo en escritorio -->
-    <a href="/booking" class="btn-primary desktop-visible">Reservar Cita</a>
+
+    <!-- Botón hamburguesa móvil -->
+    <button class="mobile-menu-btn" onclick="openDrawer()">☰</button>
 </nav>
 
 <script>
-    function toggleMenu() {
-        const navLinks = document.getElementById('navLinks');
-        navLinks.classList.toggle('active');
+    function openDrawer() {
+        document.getElementById('navDrawer').classList.add('active');
+        document.getElementById('drawerOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
-    // Cerrar menú al hacer clic en un enlace (mejora usabilidad)
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            document.getElementById('navLinks').classList.remove('active');
-        });
+    function closeDrawer() {
+        document.getElementById('navDrawer').classList.remove('active');
+        document.getElementById('drawerOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    // Cerrar drawer al hacer clic en un enlace
+    document.querySelectorAll('.nav-drawer a').forEach(link => {
+        link.addEventListener('click', closeDrawer);
     });
-    // Ocultar botón de escritorio en móvil mediante CSS (ya lo hacemos con media query)
 </script>
 
 {% block content %}{% endblock %}
